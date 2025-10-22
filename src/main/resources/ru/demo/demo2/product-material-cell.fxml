@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          style="-fx-border-color: #ccc; -fx-background-color: white; -fx-padding: 10; -fx-border-radius: 8;"
+          hgap="10" vgap="5">
+
+    <columnConstraints>
+        <ColumnConstraints minWidth="100" prefWidth="120"/>
+        <ColumnConstraints hgrow="ALWAYS"/>
+        <ColumnConstraints minWidth="120"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints prefHeight="30"/>
+        <RowConstraints prefHeight="30"/>
+        <RowConstraints prefHeight="30"/>
+    </rowConstraints>
+
+    <children>
+        <ImageView fx:id="ImageViewPhoto"
+                   fitWidth="100" fitHeight="100"
+                   GridPane.rowSpan="3"
+                   preserveRatio="true"/>
+
+        <Label fx:id="LabelTitle"
+               text="Тип | Название продукта"
+               GridPane.columnIndex="1"
+               style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <Label fx:id="LabelDescription"
+               text="Артикул: ..."
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="1"
+               style="-fx-font-size: 14px;"/>
+
+        <Label fx:id="LabelMaterials"
+               text="Материалы: ..."
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="2"
+               style="-fx-font-size: 14px;"/>
+
+        <Label fx:id="LabelCost"
+               text="Стоимость"
+               alignment="CENTER_RIGHT"
+               GridPane.columnIndex="2"
+               GridPane.rowSpan="3"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </children>
+</GridPane>
