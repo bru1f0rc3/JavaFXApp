@@ -34,7 +34,7 @@ public class ProductMaterialListController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
        ProductMaterialService service = new ProductMaterialService();
         List<Product> products = service.getAllProducts();
-        String[] items = {"По умолчанию","По возврастанию", "По убыванию"};
+        String[] items = {"По умолчанию","По возрастанию", "По убыванию"};
         for (String item : items){
             comboBoxSort.getItems().add(item);
         }
@@ -74,7 +74,7 @@ public class ProductMaterialListController implements Initializable {
         String sortValue = comboBoxSort.getValue();
         if (sortValue != null){
             switch (sortValue){
-                case "По возврастанию":
+                case "По возрастанию":
                     products.sort(Comparator.comparing(Product::getMinCostForAgent));
                     break;
                 case "По убыванию":
