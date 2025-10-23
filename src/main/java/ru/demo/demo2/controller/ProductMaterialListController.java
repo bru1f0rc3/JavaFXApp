@@ -76,7 +76,7 @@ public class ProductMaterialListController implements Initializable {
         String sortValue = comboBoxSort.getValue();
         if (sortValue != null){
             switch (sortValue){
-                case "По возрастанию":
+                case "По возврастанию":
                     products.sort(Comparator.comparing(Product::getMinCostForAgent));
                     break;
                 case "По убыванию":
