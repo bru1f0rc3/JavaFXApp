@@ -7,9 +7,6 @@ import java.util.List;
 
 public class MaterialTypeService {
     static MaterialTypeDao materialDao = new MaterialTypeDao();
-
-    public MaterialTypeService(){}
-
     public List<MaterialType> findAll(){
         return materialDao.findAll();
     }

@@ -7,9 +7,6 @@ import java.util.List;
 
 public class MaterialService {
     static MaterialDao materialDao = new MaterialDao();
-
-    public MaterialService(){}
-
     public List<Material> findAll(){
         return materialDao.findAll();
     }

@@ -4,12 +4,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateSession {
-
-    public HibernateSession(){
-
-    }
+    public HibernateSession(){}
     private static SessionFactory sessionFactory;
-
     public static SessionFactory getSessionFactory(){
         if (sessionFactory == null){
             try{

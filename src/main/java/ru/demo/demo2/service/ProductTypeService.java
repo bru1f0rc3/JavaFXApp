@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ProductTypeService {
     static ProductTypeDao productTypeDao = new ProductTypeDao();
-
     public List<ProductType> findAll(){
         return productTypeDao.findAll();
     }

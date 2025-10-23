@@ -5,13 +5,11 @@ import ru.demo.demo2.model.ProductMaterial;
 import ru.demo.demo2.repository.ProductDao;
 import ru.demo.demo2.repository.ProductMaterialDao;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 public class ProductMaterialService {
-    private static ProductMaterialDao productMaterialDao = new ProductMaterialDao();
-    private static ProductDao productDao = new ProductDao();
+    private static final ProductMaterialDao productMaterialDao = new ProductMaterialDao();
+    private static final ProductDao productDao = new ProductDao();
 
     public List<ProductMaterial> findAll(){
         return productMaterialDao.findAll();
@@ -21,9 +19,16 @@ public class ProductMaterialService {
         return productDao.findAll();
     }
 
-    public Map<Long, List<ProductMaterial>> groupByProduct() {
-        List<ProductMaterial> all = productMaterialDao.findAll();
-        return all.stream()
-                .collect(Collectors.groupingBy(pm -> pm.getProductId().getId()));
+     public List<ProductMaterial> getMaterialsForProduct(Long productId) {
+            List<ProductMaterial> allMaterials = productMaterialDao.findAll();
+            List<ProductMaterial> result = new ArrayList<>();
+
+            for (ProductMaterial pm : allMaterials) {
+                if (pm.getProductId().getId().equals(productId)) {
+                    result.add(pm);
+                }
+            }
+
+            return result;
+        }
     }
-}

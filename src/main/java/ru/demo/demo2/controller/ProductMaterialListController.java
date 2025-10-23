@@ -32,7 +32,7 @@ public class ProductMaterialListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ProductMaterialService service = new ProductMaterialService();
+       ProductMaterialService service = new ProductMaterialService();
         List<Product> products = service.getAllProducts();
         String[] items = {"По умолчанию","По возврастанию", "По убыванию"};
         for (String item : items){
@@ -45,8 +45,6 @@ public class ProductMaterialListController implements Initializable {
             comboBoxProductType.getItems().add(item.getTitle());
         }
         comboBoxProductType.setValue("Все");
-        Map<Long, List<ProductMaterial>> materialsByProduct = service.groupByProduct();
-        ProductMaterialCell.setMaterialsMap(materialsByProduct);
         listViewProducts.setItems(FXCollections.observableArrayList(products));
         listViewProducts.setCellFactory(param -> new ProductMaterialCell());
     }
@@ -96,8 +94,6 @@ public class ProductMaterialListController implements Initializable {
                 .collect(Collectors.toList());
         }
 
-        Map<Long, List<ProductMaterial>> materialsByProduct = service.groupByProduct();
-        ProductMaterialCell.setMaterialsMap(materialsByProduct);
         listViewProducts.setItems(FXCollections.observableArrayList(products));
     }
 }

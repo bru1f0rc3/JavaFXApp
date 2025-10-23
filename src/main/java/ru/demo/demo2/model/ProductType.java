@@ -15,6 +15,9 @@ public class ProductType {
     @Column(name = "title", length = 50)
     private String title;
 
+    @Column(name = "defectedpercent")
+    private Float defectedPercent;
+
     public Float getDefectedPercent() {
         return defectedPercent;
     }
@@ -39,7 +42,5 @@ public class ProductType {
         this.id = id;
     }
 
-    @Column(name = "defectedpercent")
-    private Float defectedPercent;
 
 }
