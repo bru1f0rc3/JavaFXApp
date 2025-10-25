@@ -3,7 +3,7 @@ package ru.demo.demo2.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "product_material", schema = "production")
+@Table(name = "product_material", schema = "public")
 public class ProductMaterial {
 
     @Id

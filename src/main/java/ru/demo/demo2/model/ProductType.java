@@ -3,7 +3,7 @@ package ru.demo.demo2.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "product_types", schema = "production")
+@Table(name = "product_types", schema = "public")
 public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
