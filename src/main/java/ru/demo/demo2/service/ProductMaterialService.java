@@ -7,6 +7,7 @@ import ru.demo.demo2.repository.ProductMaterialDao;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class ProductMaterialService {
     private static final ProductMaterialDao productMaterialDao = new ProductMaterialDao();
     private static final ProductDao productDao = new ProductDao();
@@ -19,16 +20,17 @@ public class ProductMaterialService {
         return productDao.findAll();
     }
 
-     public List<ProductMaterial> getMaterialsForProduct(Long productId) {
-            List<ProductMaterial> allMaterials = productMaterialDao.findAll();
-            List<ProductMaterial> result = new ArrayList<>();
+    public java.util.List<ProductMaterial> getMaterialsForProduct(String articleNumber, String title) {
+        java.util.List<ProductMaterial> allMaterials = productMaterialDao.findAll();
+        java.util.List<ProductMaterial> result = new ArrayList<>();
 
-            for (ProductMaterial pm : allMaterials) {
-                if (pm.getProductId().getId().equals(productId)) {
-                    result.add(pm);
-                }
+        for (ProductMaterial pm : allMaterials) {
+            if (pm.getProductArticleNumber().equals(articleNumber) && 
+                pm.getProductTitle().equals(title)) {
+                result.add(pm);
             }
+        }
 
-            return result;
+        return result;
     }
 }

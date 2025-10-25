@@ -40,26 +40,48 @@ public class ProductMaterialCell extends ListCell<Product> {
         }
     }
 
+    private void loadDefaultImage() {
+        try {
+            var imageStream = getClass().getResourceAsStream("/images/picture.png");
+            if (imageStream != null) {
+                Image defaultImage = new Image(imageStream);
+                if (!defaultImage.isError()) {
+                    ImageViewPhoto.setImage(defaultImage);
+                } else {
+                    System.err.println("Ошибка изображения: изображение повреждено");
+                }
+            } else {
+                System.err.println("Не найден ресурс: /images/picture.png");
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка при загрузке изображения по умолчанию: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void updateItem(Product product, boolean empty) {
         super.updateItem(product, empty);
         if (empty || product == null) {
             setGraphic(null);
         } else {
-            String typeTitle = (product.getProductTypeId() != null)
-                    ? product.getProductTypeId().getTitle()
+            String typeTitle = (product.getProductType() != null)
+                    ? product.getProductType().getTitle()
                     : "Без типа";
             LabelTitle.setText(typeTitle + " | " + product.getTitle());
             LabelDescription.setText("Артикул: " + product.getArticleNumber());
             LabelCost.setText(String.format("%.2f руб.", product.getMinCostForAgent()));
-            List<ProductMaterial> materials = service.getMaterialsForProduct(product.getId());
+            List<ProductMaterial> materials = service.getMaterialsForProduct(
+                product.getArticleNumber(), 
+                product.getTitle()
+            );
             String materialsText = "Материалы: ";
             if (materials.isEmpty()) {
                 materialsText += "Нет данных";
             } else {
                 for (int i = 0; i < materials.size(); i++) {
                     ProductMaterial pm = materials.get(i);
-                    String materialName = pm.getMaterialId().getTitle();
+                    String materialName = pm.getMaterial().getTitle();
                     materialsText += materialName;
                     if (i < materials.size() - 1) {
                         materialsText += ", ";
@@ -67,15 +89,20 @@ public class ProductMaterialCell extends ListCell<Product> {
                 }
             }
             LabelMaterials.setText(materialsText);
+
             if (product.getImage() != null && !product.getImage().isEmpty()) {
                 try {
                     Image image = new Image("file:" + product.getImage());
-                    ImageViewPhoto.setImage(image);
+                    if (!image.isError()) {
+                        ImageViewPhoto.setImage(image);
+                    } else {
+                        loadDefaultImage();
+                    }
                 } catch (Exception e) {
-                    ImageViewPhoto.setImage(null);
+                    loadDefaultImage();
                 }
             } else {
-                ImageViewPhoto.setImage(null);
+                loadDefaultImage();
             }
             setGraphic(gridPane);
         }

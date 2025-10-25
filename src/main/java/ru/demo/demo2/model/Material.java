@@ -3,27 +3,29 @@ package ru.demo.demo2.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "material", schema = "public")
+@Table(name = "materials", schema = "production")
 public class Material {
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "material_id")
+    private Long materialId;
 
     @Column(name = "title", length = 100)
     private String title;
 
-    @Column(name = "countinpack")
+    @Column(name = "count_in_pack")
     private Integer countInPack;
 
-    @Column(name = "unit", length = 10)
-    private String unit;
+    @ManyToOne
+    @JoinColumn(name = "unit_id")
+    private Unit unit;
 
-    @Column(name = "countinstock")
-    private Float countInStock;
+    @Column(name = "count_in_stock")
+    private Double countInStock;
 
-    @Column(name = "mincount")
-    private Float minCount;
+    @Column(name = "min_count")
+    private Double minCount;
 
     @Column(name = "description")
     private String description;
@@ -35,15 +37,15 @@ public class Material {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "materialtypeid")
-    private MaterialType materialTypeId;
+    @JoinColumn(name = "material_type_id")
+    private MaterialType materialType;
 
-    public Long getId() {
-        return id;
+    public Long getMaterialId() {
+        return materialId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMaterialId(Long materialId) {
+        this.materialId = materialId;
     }
 
     public String getTitle() {
@@ -62,27 +64,27 @@ public class Material {
         this.countInPack = countInPack;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
-    public Float getCountInStock() {
+    public Double getCountInStock() {
         return countInStock;
     }
 
-    public void setCountInStock(Float countInStock) {
+    public void setCountInStock(Double countInStock) {
         this.countInStock = countInStock;
     }
 
-    public Float getMinCount() {
+    public Double getMinCount() {
         return minCount;
     }
 
-    public void setMinCount(Float minCount) {
+    public void setMinCount(Double minCount) {
         this.minCount = minCount;
     }
 
@@ -110,11 +112,11 @@ public class Material {
         this.image = image;
     }
 
-    public MaterialType getMaterialTypeId() {
-        return materialTypeId;
+    public MaterialType getMaterialType() {
+        return materialType;
     }
 
-    public void setMaterialTypeId(MaterialType materialTypeId) {
-        this.materialTypeId = materialTypeId;
+    public void setMaterialType(MaterialType materialType) {
+        this.materialType = materialType;
     }
 }

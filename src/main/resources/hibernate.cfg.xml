@@ -15,10 +15,11 @@
         <property name = "hibernate.show_sql">true</property>
         <!-- Optional: Auto-generate schema -->
         <!-- <property name = "hibernate.hbm2ddl.auto">create</property> -->
-        <mapping class="ru.demo.demo2.model.ProductMaterial" />
-        <mapping class="ru.demo.demo2.model.Product" />
+        <mapping class="ru.demo.demo2.model.Unit" />
         <mapping class="ru.demo.demo2.model.MaterialType" />
         <mapping class="ru.demo.demo2.model.Material" />
         <mapping class="ru.demo.demo2.model.ProductType" />
+        <mapping class="ru.demo.demo2.model.Product" />
+        <mapping class="ru.demo.demo2.model.ProductMaterial" />
     </session-factory>
 </hibernate-configuration>

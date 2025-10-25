@@ -1,28 +1,26 @@
 package ru.demo.demo2.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "materialtype", schema = "public")
+@Table(name = "material_types", schema = "production")
 public class MaterialType {
     @Id
-    @Column(name = "id")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "material_type_id")
+    private Long materialTypeId;
 
     @Column(name = "title", length = 50)
     private String title;
 
-    @Column(name = "defectedpercent")
-    private Float defectedPercent;
+    @Column(name = "defected_percent")
+    private Double defectedPercent;
 
-    public Float getDefectedPercent() {
+    public Double getDefectedPercent() {
         return defectedPercent;
     }
 
-    public void setDefectedPercent(Float defectedPercent) {
+    public void setDefectedPercent(Double defectedPercent) {
         this.defectedPercent = defectedPercent;
     }
 
@@ -34,12 +32,12 @@ public class MaterialType {
         this.title = title;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMaterialTypeId() {
+        return materialTypeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMaterialTypeId(Long materialTypeId) {
+        this.materialTypeId = materialTypeId;
     }
 
 

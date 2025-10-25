@@ -30,4 +30,18 @@ public class ProductMaterialId implements Serializable {
     public void setMaterialId(Long materialId) {
         this.materialId = materialId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductMaterialId that = (ProductMaterialId) o;
+        return Objects.equals(productId, that.productId) &&
+               Objects.equals(materialId, that.materialId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, materialId);
+    }
 }

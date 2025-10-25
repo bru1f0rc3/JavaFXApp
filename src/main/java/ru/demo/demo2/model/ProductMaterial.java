@@ -1,50 +1,81 @@
 package ru.demo.demo2.model;
 
 import jakarta.persistence.*;
-record ProductMaterialId1(long id1, long id2){
-
-}
 
 @Entity
-@Table(name = "productmaterial", schema = "public")
-@IdClass(ProductMaterialId1.class)
+@Table(name = "product_material", schema = "production")
 public class ProductMaterial {
 
     @Id
-    @ManyToOne
-    @JoinColumn(name = "productid")
-    private Product productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pm_id")
+    private Long pmId;
 
-    @Id
+    @Column(name = "product_article_number", length = 10)
+    private String productArticleNumber;
+
+    @Column(name = "product_title", length = 100)
+    private String productTitle;
+
     @ManyToOne
-    @JoinColumn(name = "materialid")
-    private Material materialId;
+    @JoinColumns({
+        @JoinColumn(name = "product_article_number", referencedColumnName = "article_number", insertable = false, updatable = false),
+        @JoinColumn(name = "product_title", referencedColumnName = "title", insertable = false, updatable = false)
+    })
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "material_id")
+    private Material material;
 
     @Column(name = "count")
     private Double count;
 
-    public Product getProductId() {
-        return productId;
+    public Long getPmId() {
+        return pmId;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setPmId(Long pmId) {
+        this.pmId = pmId;
     }
 
-    public Material getMaterialId() {
-        return materialId;
+    public String getProductArticleNumber() {
+        return productArticleNumber;
     }
 
-    public void setMaterialId(Material materialId) {
-        this.materialId = materialId;
+    public void setProductArticleNumber(String productArticleNumber) {
+        this.productArticleNumber = productArticleNumber;
     }
 
-    public Float getCount() {
-        return count != null ? count.floatValue() : null;
+    public String getProductTitle() {
+        return productTitle;
     }
 
-    public void setCount(Float count) {
-        this.count = count != null ? count.doubleValue() : null;
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Double getCount() {
+        return count;
+    }
+
+    public void setCount(Double count) {
+        this.count = count;
+    }
 }

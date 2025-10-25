@@ -45,6 +45,12 @@
               AnchorPane.topAnchor="80" 
               AnchorPane.leftAnchor="10" 
               AnchorPane.rightAnchor="10" 
-              AnchorPane.bottomAnchor="10"/>
+              AnchorPane.bottomAnchor="40"/>
+
+    <Label fx:id="labelCounter"
+           text="0 из 0"
+           style="-fx-font-size: 14px; -fx-font-weight: bold;"
+           AnchorPane.bottomAnchor="10"
+           AnchorPane.leftAnchor="10"/>
 
 </AnchorPane>

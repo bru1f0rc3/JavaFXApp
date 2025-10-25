@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import ru.demo.demo2.model.Product;
@@ -30,10 +31,15 @@ public class ProductMaterialListController implements Initializable {
     @FXML
     private ComboBox<String> comboBoxSort;
 
+    @FXML
+    private Label labelCounter;
+
+    private List<Product> allProducts;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        ProductMaterialService service = new ProductMaterialService();
-        List<Product> products = service.getAllProducts();
+        allProducts = service.getAllProducts();
         String[] items = {"По умолчанию","По возрастанию", "По убыванию"};
         for (String item : items){
             comboBoxSort.getItems().add(item);
@@ -45,8 +51,9 @@ public class ProductMaterialListController implements Initializable {
             comboBoxProductType.getItems().add(item.getTitle());
         }
         comboBoxProductType.setValue("Все");
-        listViewProducts.setItems(FXCollections.observableArrayList(products));
+        listViewProducts.setItems(FXCollections.observableArrayList(allProducts));
         listViewProducts.setCellFactory(param -> new ProductMaterialCell());
+        updateCounter(allProducts.size(), allProducts.size());
     }
 
     @FXML
@@ -89,11 +96,16 @@ public class ProductMaterialListController implements Initializable {
         String typeValue = comboBoxProductType.getValue();
         if (typeValue != null && !typeValue.equals("Все")){
             products = products.stream()
-                .filter(pr -> pr.getProductTypeId() != null &&
-                        pr.getProductTypeId().getTitle().equals(typeValue))
+                .filter(pr -> pr.getProductType() != null &&
+                        pr.getProductType().getTitle().equals(typeValue))
                 .collect(Collectors.toList());
         }
 
         listViewProducts.setItems(FXCollections.observableArrayList(products));
+        updateCounter(products.size(), allProducts.size());
+    }
+
+    private void updateCounter(int current, int total) {
+        labelCounter.setText(current + " из " + total);
     }
 }

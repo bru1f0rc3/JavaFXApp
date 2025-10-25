@@ -2,25 +2,22 @@ package ru.demo.demo2.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "product", schema = "public")
+@Table(name = "products", schema = "production")
+@IdClass(ProductId.class)
 public class Product {
 
     @Id
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "article_number", length = 10)
+    private String articleNumber;
 
-    @Column(name = "title")
+    @Id
+    @Column(name = "title", length = 100)
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "producttypeid")
-    private ProductType productTypeId;
-
-    @Column(name = "articlenumber", length = 10)
-    private String articleNumber;
+    @JoinColumn(name = "product_type_id")
+    private ProductType productType;
 
     @Column(name = "description")
     private String description;
@@ -28,21 +25,21 @@ public class Product {
     @Column(name = "image", length = 100)
     private String image;
 
-    @Column(name = "productionpersoncount")
+    @Column(name = "production_person_count")
     private Integer productionPersonCount;
 
-    @Column(name = "productionworkshopnumber")
-    private Integer productionWorkShopNumber;
+    @Column(name = "production_workshop_number")
+    private Integer productionWorkshopNumber;
 
-    @Column(name = "mincostforagent")
+    @Column(name = "min_cost_for_agent")
     private Double minCostForAgent;
 
-    public Long getId() {
-        return id;
+    public String getArticleNumber() {
+        return articleNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setArticleNumber(String articleNumber) {
+        this.articleNumber = articleNumber;
     }
 
     public String getTitle() {
@@ -53,20 +50,12 @@ public class Product {
         this.title = title;
     }
 
-    public ProductType getProductTypeId() {
-        return productTypeId;
+    public ProductType getProductType() {
+        return productType;
     }
 
-    public void setProductTypeId(ProductType productTypeId) {
-        this.productTypeId = productTypeId;
-    }
-
-    public String getArticleNumber() {
-        return articleNumber;
-    }
-
-    public void setArticleNumber(String articleNumber) {
-        this.articleNumber = articleNumber;
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     public String getDescription() {
@@ -93,12 +82,12 @@ public class Product {
         this.productionPersonCount = productionPersonCount;
     }
 
-    public Integer getProductionWorkShopNumber() {
-        return productionWorkShopNumber;
+    public Integer getProductionWorkshopNumber() {
+        return productionWorkshopNumber;
     }
 
-    public void setProductionWorkShopNumber(Integer productionWorkShopNumber) {
-        this.productionWorkShopNumber = productionWorkShopNumber;
+    public void setProductionWorkshopNumber(Integer productionWorkshopNumber) {
+        this.productionWorkshopNumber = productionWorkshopNumber;
     }
 
     public Double getMinCostForAgent() {
@@ -108,5 +97,4 @@ public class Product {
     public void setMinCostForAgent(Double minCostForAgent) {
         this.minCostForAgent = minCostForAgent;
     }
-
 }
