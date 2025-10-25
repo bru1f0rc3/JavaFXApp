@@ -1,10 +1,13 @@
 package ru.demo.demo2.model;
 
 import jakarta.persistence.*;
+record ProductMaterialId1(long id1, long id2){
+
+}
 
 @Entity
 @Table(name = "productmaterial", schema = "public")
-@IdClass(ProductMaterialId.class)
+@IdClass(ProductMaterialId1.class)
 public class ProductMaterial {
 
     @Id

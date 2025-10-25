@@ -18,11 +18,11 @@ public abstract class BaseDao<T> {
     }
 
     public void save(T entity){
-        Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
-        session.persist(entity);
-        tx.commit();
-        session.close();
+        try(Session session = getCurrentSession()){
+            Transaction tx = session.beginTransaction();
+            session.persist(entity);
+            tx.commit();
+        }
     }
 
     public T findOne(long id){
