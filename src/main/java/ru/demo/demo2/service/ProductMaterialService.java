@@ -20,15 +20,13 @@ public class ProductMaterialService {
     }
 
      public List<ProductMaterial> getMaterialsForProduct(Long productId) {
-            List<ProductMaterial> allMaterials = productMaterialDao.findAll();
-            List<ProductMaterial> result = new ArrayList<>();
-
-            for (ProductMaterial pm : allMaterials) {
-                if (pm.getProductId().getId().equals(productId)) {
-                    result.add(pm);
+            List<ProductMaterial> all = productMaterialDao.findAll();
+            List<ProductMaterial> items = new ArrayList<>();
+            for (var pm : all){
+                if (pm.getProductId().getId().equals(productId)){
+                    items.add(pm);
                 }
             }
-
-            return result;
+            return items;
         }
     }

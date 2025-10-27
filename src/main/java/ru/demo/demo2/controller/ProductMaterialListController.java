@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import ru.demo.demo2.model.Product;
@@ -29,11 +30,17 @@ public class ProductMaterialListController implements Initializable {
     
     @FXML
     private ComboBox<String> comboBoxSort;
+    
+    @FXML
+    private Label labelCounter;
+    
+    private int totalProductsCount = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        ProductMaterialService service = new ProductMaterialService();
         List<Product> products = service.getAllProducts();
+        totalProductsCount = products.size();
         String[] items = {"По умолчанию","По возрастанию", "По убыванию"};
         for (String item : items){
             comboBoxSort.getItems().add(item);
@@ -47,6 +54,7 @@ public class ProductMaterialListController implements Initializable {
         comboBoxProductType.setValue("Все");
         listViewProducts.setItems(FXCollections.observableArrayList(products));
         listViewProducts.setCellFactory(param -> new ProductMaterialCell());
+        updateCounter(products.size(), totalProductsCount);
     }
 
     @FXML
@@ -95,5 +103,10 @@ public class ProductMaterialListController implements Initializable {
         }
 
         listViewProducts.setItems(FXCollections.observableArrayList(products));
+        updateCounter(products.size(), totalProductsCount);
+    }
+    
+    private void updateCounter(int shown, int total) {
+        labelCounter.setText("Показано " + shown + " из " + total + " записей");
     }
 }

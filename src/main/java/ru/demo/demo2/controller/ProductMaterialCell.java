@@ -13,6 +13,8 @@ import ru.demo.demo2.service.ProductMaterialService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ProductMaterialCell extends ListCell<Product> {
     @FXML
@@ -57,14 +59,11 @@ public class ProductMaterialCell extends ListCell<Product> {
             if (materials.isEmpty()) {
                 materialsText += "Нет данных";
             } else {
-                for (int i = 0; i < materials.size(); i++) {
-                    ProductMaterial pm = materials.get(i);
-                    String materialName = pm.getMaterialId().getTitle();
-                    materialsText += materialName;
-                    if (i < materials.size() - 1) {
-                        materialsText += ", ";
-                    }
-                }
+                List<String> lists = materials.stream()
+                        .map(pm ->
+                                pm.getMaterialId().getTitle())
+                        .collect(Collectors.toList());
+                materialsText += String.join(", ", lists);
             }
             LabelMaterials.setText(materialsText);
             if (product.getImage() != null && !product.getImage().isEmpty()) {
@@ -72,10 +71,10 @@ public class ProductMaterialCell extends ListCell<Product> {
                     Image image = new Image("file:" + product.getImage());
                     ImageViewPhoto.setImage(image);
                 } catch (Exception e) {
-                    ImageViewPhoto.setImage(null);
+                    ImageViewPhoto.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/picture.png"))));
                 }
             } else {
-                ImageViewPhoto.setImage(null);
+                ImageViewPhoto.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/picture.png"))));
             }
             setGraphic(gridPane);
         }
